@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Academy - Pink Edition</title>
+    <style>
+        /* RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #180914; /* Dark Pink/Plum Background */
+            color: #fdf2f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            background-color: #2a0c25;
+            border-bottom: 1px solid #4a1543;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+        }
+
+        .brand-text h1 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+
+        .brand-text h1 span {
+            color: #f472b6;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: #fbcfe8;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background-color: #180914;
+            padding: 0.35rem;
+            border-radius: 10px;
+            border: 1px solid #4a1543;
+            gap: 0.25rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #fbcfe8;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background-color: #ec4899;
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(236, 72, 153, 0.3);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: #ffffff;
+            background-color: #2a0c25;
+        }
+
+        /* MAIN LAYOUT */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        .section-tag {
+            color: #f472b6;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+            color: #ffffff;
+        }
+
+        .section-header p {
+            color: #fbcfe8;
+            font-size: 0.95rem;
+        }
+
+        /* GALLERY SECTION */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: #2a0c25;
+            border: 1px solid #4a1543;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #ec4899;
+        }
+
+        .card-img {
+            position: relative;
+            height: 220px;
+            background-color: #4a1543;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: rgba(236, 72, 153, 0.9);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .card-body h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            color: #fdf2f8;
+        }
+
+        .card-body p {
+            color: #fbcfe8;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .card-footer {
+            border-top: 1px solid #4a1543;
+            padding-top: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #f472b6;
+        }
+
+        /* FORM SECTION */
+        .form-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #2a0c25;
+            border: 1px solid #4a1543;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #fdf2f8;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group label .required {
+            color: #fb7185;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: #180914;
+            border: 1px solid #4a1543;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: #fdf2f8;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: #ec4899;
+            box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .radio-group, .checkbox-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .radio-group {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .checkbox-grid {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        }
+
+        .radio-item, .checkbox-item {
+            background-color: #180914;
+            border: 1px solid #4a1543;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            color: #fbcfe8;
+        }
+
+        .radio-item:hover, .checkbox-item:hover {
+            border-color: #ec4899;
+        }
+
+        .hint {
+            font-size: 0.75rem;
+            color: #f472b6;
+            margin-top: 0.35rem;
+        }
+
+        .error-msg {
+            color: #fb7185;
+            font-size: 0.75rem;
+            margin-top: 0.35rem;
+            display: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #ec4899, #e11d48);
+            color: white;
+            font-weight: 700;
+            padding: 0.875rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+            margin-top: 0.5rem;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        /* RESULT CARD */
+        .result-container {
+            display: none;
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #2a0c25;
+            border: 1px solid #4a1543;
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .result-title {
+            color: #34d399;
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #4a1543;
+        }
+
+        .result-grid {
+            background-color: #180914;
+            border-radius: 10px;
+            padding: 1.25rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .result-item label {
+            display: block;
+            font-size: 0.75rem;
+            color: #f472b6;
+            margin-bottom: 0.2rem;
+        }
+
+        .result-item span {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fdf2f8;
+        }
+
+        .badges-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.35rem;
+        }
+
+        .badge {
+            background-color: rgba(236, 72, 153, 0.2);
+            color: #f472b6;
+            border: 1px solid rgba(236, 72, 153, 0.4);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .btn-reset {
+            width: 100%;
+            background-color: #4a1543;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            margin-top: 1.25rem;
+            cursor: pointer;
+        }
+
+        .btn-reset:hover {
+            background-color: #611b58;
+        }
+
+        /* CUSTOM MODAL CONFIRMATION */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-box {
+            background-color: #2a0c25;
+            border: 1px solid #4a1543;
+            border-radius: 12px;
+            max-width: 420px;
+            width: 100%;
+            padding: 1.5rem;
+        }
+
+        .modal-box h3 {
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-box p {
+            color: #fbcfe8;
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .modal-btn-cancel {
+            background-color: #4a1543;
+            color: #fbcfe8;
+        }
+
+        .modal-btn-confirm {
+            background-color: #ec4899;
+            color: white;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #10050d;
+            border-top: 1px solid #2a0c25;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.75rem;
+            color: #f472b6;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="nav-container">
+            <div class="brand" onclick="switchTab('gallery')">
+                <div class="brand-logo">&lt;/&gt;</div>
+                <div class="brand-text">
+                    <h1>CODING<span>ACADEMY</span></h1>
+                    <p>Build Your Tech Future</p>
+                </div>
+            </div>
+            <div class="nav-tabs">
+                <button id="btn-tab-gallery" class="tab-btn active" onclick="switchTab('gallery')">Gallery Kegiatan</button>
+                <button id="btn-tab-pendaftaran" class="tab-btn" onclick="switchTab('pendaftaran')">Pendaftaran</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- GALLERY VIEW -->
+        <section id="view-gallery">
+            <div class="section-header">
+                <span class="section-tag">Aktivitas & Pelatihan</span>
+                <h2>Dokumentasi Kegiatan</h2>
+                <p>Suasana belajar dan pelatihan interaktif siswa-siswi Indonesia di Coding Academy.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="card-img">
+                        <img src="Praktik Coding & Development.png" alt="Praktik Coding & Development">
+                        <span class="card-badge">Web Development</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Fullstack Web Bootcamp</h3>
+                        <p>Peserta saat belajar secara interaktif pengembangan aplikasi web modern dan menulis kode program di layar laptop.</p>
+                        <div class="card-footer">
+                            <span>Jadwal: Sabtu & Minggu</span>
+                            <span>25 Peserta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="card-img">
+                        <img src="Sesi Praktik Pemrograman.png" alt="Sesi Praktik Pemrograman">
+                        <span class="card-badge">Data & AI</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Sesi Praktik & Pemrograman</h3>
+                        <p>Praktik langsung pembuatan program komputer dan algoritma dengan layar laptop yang menampilkan logika pemrograman.</p>
+                        <div class="card-footer">
+                            <span>Jadwal: Selasa & Kamis</span>
+                            <span>20 Peserta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <div class="card-img">
+                        <img src="Suasana Praktikum Komputer.png" alt="Suasana Praktikum Komputer">
+                        <span class="card-badge">Laboratorium</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Praktikum Lab Komputer</h3>
+                        <p>Suasana pengerjaan proyek akhir peserta Indonesia di dalam ruang laboratorium komputer secara fokus dan terpimpin.</p>
+                        <div class="card-footer">
+                            <span>Jadwal: Senin & Rabu</span>
+                            <span>30 Peserta</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORM PENDAFTARAN VIEW -->
+        <section id="view-pendaftaran" class="hidden">
+            <div class="section-header">
+                <span class="section-tag">Formulir Peserta</span>
+                <h2>Pendaftaran Pelatihan</h2>
+                <p>Isi data diri Anda dengan lengkap untuk mendaftar program pelatihan.</p>
+            </div>
+
+            <!-- FORM -->
+            <form id="regForm" class="form-container" onsubmit="handleFormSubmit(event)">
+                <!-- NIK -->
+                <div class="form-group">
+                    <label for="nik">NIK (Nomor Induk Kependudukan) <span class="required">*</span></label>
+                    <input type="text" id="nik" class="form-control" placeholder="Contoh: 3171012304950001" maxlength="16" pattern="[0-9]{16}" required>
+                    <div class="hint">Harus terdiri dari 16 digit angka.</div>
+                </div>
+
+                <!-- NAMA LENGKAP -->
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap <span class="required">*</span></label>
+                    <input type="text" id="nama" class="form-control" placeholder="Masukkan nama lengkap Anda" required>
+                </div>
+
+                <!-- JENIS KELAMIN -->
+                <div class="form-group">
+                    <label>Jenis Kelamin <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="gender" value="Laki-laki" required> Laki-laki
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="gender" value="Perempuan" required> Perempuan
+                        </label>
+                    </div>
+                </div>
+
+                <!-- NO HP -->
+                <div class="form-group">
+                    <label for="nohp">Nomor HP / WhatsApp <span class="required">*</span></label>
+                    <input type="tel" id="nohp" class="form-control" placeholder="Contoh: 081234567890" required>
+                </div>
+
+                <!-- ALAMAT -->
+                <div class="form-group">
+                    <label for="alamat">Alamat Lengkap <span class="required">*</span></label>
+                    <textarea id="alamat" class="form-control" placeholder="Masukkan alamat lengkap Anda" required></textarea>
+                </div>
+
+                <!-- BAHASA PEMROGRAMAN -->
+                <div class="form-group">
+                    <label>Bahasa Pemrograman Diminati <span class="required">*</span></label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="lang" value="HTML & CSS" class="lang-cb"> HTML & CSS
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="lang" value="JavaScript" class="lang-cb"> JavaScript
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="lang" value="Python" class="lang-cb"> Python
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="lang" value="Java" class="lang-cb"> Java
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="lang" value="C++" class="lang-cb"> C++
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="lang" value="PHP / SQL" class="lang-cb"> PHP / SQL
+                        </label>
+                    </div>
+                    <div id="lang-error" class="error-msg">Pilihlah minimal satu bahasa pemrograman.</div>
+                </div>
+
+                <button type="submit" class="btn-submit">Simpan Pendaftaran</button>
+            </form>
+
+            <!-- HASIL PENDAFTARAN -->
+            <div id="resultCard" class="result-container">
+                <div class="result-title">Pendaftaran Berhasil Disimpan!</div>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <label>NIK</label>
+                        <span id="res-nik"></span>
+                    </div>
+                    <div class="result-item">
+                        <label>Nama Lengkap</label>
+                        <span id="res-nama"></span>
+                    </div>
+                    <div class="result-item">
+                        <label>Jenis Kelamin</label>
+                        <span id="res-gender"></span>
+                    </div>
+                    <div class="result-item">
+                        <label>Nomor HP</label>
+                        <span id="res-nohp"></span>
+                    </div>
+                    <div class="result-item">
+                        <label>Alamat Lengkap</label>
+                        <span id="res-alamat"></span>
+                    </div>
+                    <div class="result-item">
+                        <label>Bahasa Pemrograman Diminati</label>
+                        <div id="res-lang" class="badges-list"></div>
+                    </div>
+                </div>
+                <button class="btn-reset" onclick="resetForm()">Daftar Peserta Baru</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Coding Academy. All rights reserved.</p>
+    </footer>
+
+    <!-- CONFIRM MODAL -->
+    <div id="confirmModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>Konfirmasi Pendaftaran</h3>
+            <p>Apakah Anda sudah yakin untuk menyimpan?</p>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn modal-btn-cancel" onclick="closeModal(false)">Batal</button>
+                <button type="button" class="modal-btn modal-btn-confirm" onclick="closeModal(true)">Ya, Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        let cachedData = null;
+
+        // Pindah Tampilan Tab
+        function switchTab(tab) {
+            const viewGallery = document.getElementById('view-gallery');
+            const viewPendaftaran = document.getElementById('view-pendaftaran');
+            const btnGallery = document.getElementById('btn-tab-gallery');
+            const btnPendaftaran = document.getElementById('btn-tab-pendaftaran');
+
+            if (tab === 'gallery') {
+                viewGallery.classList.remove('hidden');
+                viewPendaftaran.classList.add('hidden');
+                btnGallery.classList.add('active');
+                btnPendaftaran.classList.remove('active');
+            } else {
+                viewGallery.classList.add('hidden');
+                viewPendaftaran.classList.remove('hidden');
+                btnPendaftaran.classList.add('active');
+                btnGallery.classList.remove('active');
+            }
+        }
+
+        // Handle Submit Form
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            // Validasi Checkbox Minimal 1
+            const checkboxes = document.querySelectorAll('.lang-cb:checked');
+            const errorMsg = document.getElementById('lang-error');
+
+            if (checkboxes.length === 0) {
+                errorMsg.style.display = 'block';
+                return;
+            } else {
+                errorMsg.style.display = 'none';
+            }
+
+            // Simpan data form sementara
+            const langs = Array.from(checkboxes).map(cb => cb.value);
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+
+            cachedData = {
+                nik: document.getElementById('nik').value,
+                nama: document.getElementById('nama').value,
+                gender: gender,
+                nohp: document.getElementById('nohp').value,
+                alamat: document.getElementById('alamat').value,
+                languages: langs
+            };
+
+            // Tampilkan Modal Konfirmasi
+            document.getElementById('confirmModal').style.display = 'flex';
+        }
+
+        // Tutup Modal Konfirmasi
+        function closeModal(isConfirmed) {
+            document.getElementById('confirmModal').style.display = 'none';
+
+            if (isConfirmed && cachedData) {
+                displayResult(cachedData);
+            }
+        }
+
+        // Tampilkan Hasil Pendaftaran
+        function displayResult(data) {
+            document.getElementById('res-nik').textContent = data.nik;
+            document.getElementById('res-nama').textContent = data.nama;
+            document.getElementById('res-gender').textContent = data.gender;
+            document.getElementById('res-nohp').textContent = data.nohp;
+            document.getElementById('res-alamat').textContent = data.alamat;
+
+            const langContainer = document.getElementById('res-lang');
+            langContainer.innerHTML = '';
+            data.languages.forEach(item => {
+                const badge = document.createElement('span');
+                badge.className = 'badge';
+                badge.textContent = item;
+                langContainer.appendChild(badge);
+            });
+
+            document.getElementById('regForm').style.display = 'none';
+            document.getElementById('resultCard').style.display = 'block';
+        }
+
+        // Reset Formulir
+        function resetForm() {
+            document.getElementById('regForm').reset();
+            document.getElementById('regForm').style.display = 'block';
+            document.getElementById('resultCard').style.display = 'none';
+            document.getElementById('lang-error').style.display = 'none';
+            cachedData = null;
+        }
+    </script>
+</body>
+</html>
